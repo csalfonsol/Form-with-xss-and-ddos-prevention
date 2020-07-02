@@ -54,3 +54,7 @@ body {
 }
 
 
+.link {
+    cursor: progress;
+    background-color: rebeccapurple !important;
+}

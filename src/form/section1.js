@@ -1,3 +1,7 @@
+// Security libraries
+import createDOMPurify from "dompurify";
+
+
 // Librerias
 import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form' 
@@ -49,9 +53,14 @@ const InformacionPersonalFuncionario = props => {
   function cambiarFechaNacimiento(fecha) { props.cambiarFechaNacimiento(fecha); }
   function cambiarPersonasaCargo(data) { props.cambiarPersonasaCargo(data); }  
 
+  const DOMPurify = createDOMPurify(window);
+
+  const userInput = "Hi, <img src='' onerror='alert(0)' />";
 
   // Se ejecuta cada vez que se renderiza este componente
   useEffect(() => {   
+
+   
 
    // Se carga la lista de departamentos y municipios
    async function obtenerDepartamentos() {
@@ -139,6 +148,9 @@ const InformacionPersonalFuncionario = props => {
 
   // Celda para ingresar datos
   function renderEditable(cellInfo) {
+
+    const aboutUserText = "<img onerror='alert(\"Hacked!\");' src='invalid-image' />";
+
     return (
       <div        
         className = "cell"
@@ -162,17 +174,19 @@ const InformacionPersonalFuncionario = props => {
         }}   
 
         dangerouslySetInnerHTML = {{
-          __html: props.personasaCargo[cellInfo.index][cellInfo.column.id]
+           __html: props.personasaCargo[cellInfo.index][cellInfo.column.id]
+          /* __html: aboutUserText */
         }} 
       />
     );
   }
 
+
   // Celda para eliminar la fila
   function renderDelete(cellInfo) {
     return (
       <Button 
-
+                
         onClick = {e => {
           // Mínimo debe haber una persona a cargo
           if (props.personasaCargo.length > 1){ 
@@ -355,7 +369,16 @@ const InformacionPersonalFuncionario = props => {
         <Col md="2">
           <Form.Control size="sm" name="civil" type="text" ref={register({required: true})} />
             {errors.civil && renderValidationRequired("civil")}   
-        </Col>           
+        </Col>  
+        <Col md="0" className="ml-5">
+          <span className="mr-3">Escribe un estado civil</span>
+          <a                         
+            /* dangerouslySetInnerHTML = {{ __html: watch('civil') }}  */
+            dangerouslySetInnerHTML = {{ __html: DOMPurify.sanitize(watch('civil')) }} 
+            class="btn btn-warning">                  
+          </a> 
+          
+        </Col>
       </Row>
       
       <Row className="mt-4">
