@@ -1,0 +1,56 @@
+body {
+    margin: 2%;
+}
+
+.nota_certificado {
+    font-size: medium;
+    font-style: italic;
+}
+
+.nota_ubicacion_fbs {
+    font-size: small;
+    font-style: italic;
+}
+
+.nota_pago {
+    font-size: small;
+    font-style: italic;
+}
+
+.nota_vehiculo {
+    font-size: small;    
+}
+
+.caja_firma {
+    height: 100px;
+    width: 90%;
+    margin-bottom: 0px;
+}
+
+.rellenar {
+    width: 95%;    
+}
+
+.encabezado_columna {
+    
+    margin-bottom: 4px;
+    margin-top: 4px;
+    font-weight: bold;    
+    /* border-width: 1px;
+     border-style: solid;*/
+}
+
+.blue {
+    background-color: rgb(240, 255, 255);
+}
+
+.cell {
+    background-color: rgb(247, 247, 247);
+}
+
+
+.pointer {
+    cursor: pointer;
+}
+
+
